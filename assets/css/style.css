@@ -1,0 +1,23 @@
+body{
+    color: white;
+    align-content: center;
+    background-color: maroon;
+}
+.custom_logo{
+    margin: 2%;
+    align-content: center;
+}
+
+h3{
+    padding: 1%;
+    font-family: Rockwell;
+    color: white;
+}
+.form-group{
+    margin: 5%;
+    padding: 2%;
+}
+
+.btn{
+    margin: 2%;
+}

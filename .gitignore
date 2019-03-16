@@ -1,3 +1,11 @@
+# earth Data ignores
+earth_data/
+
+
+
+
+# CUSTOM IGNORES
+
 # Logs
 logs
 *.log

@@ -1,0 +1,30 @@
+{
+  "name": "live-wallpaper",
+  "version": "1.0.0",
+  "description": "A Live Wallpaper app which sets earth's live photos as your desktop wallpaper depending upon time.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Pishang Ujeniya",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^4.1.0"
+  },
+  "dependencies": {
+    "async": "^2.6.2",
+    "crypto": "^1.0.1",
+    "dateformat": "^3.0.3",
+    "deep-extend": "^0.6.0",
+    "electron-root-path": "^1.0.9",
+    "eslint": "^5.15.2",
+    "fs-extra": "^7.0.1",
+    "jquery": "^3.3.1",
+    "merge-images": "^1.1.0",
+    "moment": "^2.24.0",
+    "path": "^0.12.7",
+    "popper.js": "^1.14.7",
+    "tmp": "0.0.33",
+    "wallpaper": "^4.3.0"
+  }
+}
