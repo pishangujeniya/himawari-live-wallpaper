@@ -105,7 +105,7 @@ var himawari = function (userOptions) {
         });
       }
     }
-
+    console.log("HELLO");
     // Create a temp directory
     var tmp = mktemp.dirSync({ unsafeCleanup: true });
 

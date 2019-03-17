@@ -1,6 +1,12 @@
 body{
-    color: white;
+    color: black;
     align-content: center;
+    background-color:burlywood;
+}
+
+.navbar{
+    color: white;
+    font-weight: bold;
     background-color: maroon;
 }
 .custom_logo{

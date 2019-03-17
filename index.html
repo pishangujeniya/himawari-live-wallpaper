@@ -33,30 +33,48 @@
     <a class="navbar-brand mr-0 mr-md-2" href="/" aria-label="Live Wallpaper"><img class="custom_logo"
         src="./assets/images/icons8-globe-100.png" /> </a>
 
-        <h3>Himawari Live Wallpaper</h3>
+    <h3>Himawari Live Wallpaper</h3>
   </header>
   <div class="form-group">
     <label for="sel1" id="resolution_select_label">Select minimum resolution:</label>
     <select class="form-control" id="sel1">
-      <option value=1>1100 x 1100</option>
-      <option value=2>2200 x 2200</option>
-      <option value=3>4400 x 4400</option>
-      <option value=4>8800 x 8800</option>
-      <option value=5>11000 x 11000</option>
+      <!-- <option value=1>1100 x 1100
+        <script
+          type="text/javascript">document.write((((((1100 * 1100) / (550 * 550)) * 500) / 1024) * 144) + " Mb");</script>
+      </option> -->
+      <option value=2>2200 x 2200
+        <script type="text/javascript">
+          document.write((7 * 144) + " Mb");
+          // document.write((((((2200 * 2200) / (550 * 550)) * 500) / 1024) * 144) + " Mb");</script>
+      </option>
+      <option value=3>4400 x 4400
+        <script
+          type="text/javascript">document.write((((((4400 * 4400) / (550 * 550)) * 500) / 1024) * 144) + " Mb");</script>
+      </option>
+      <option value=4>8800 x 8800
+        <script
+          type="text/javascript">document.write((((((8800 * 8800) / (550 * 550)) * 500) / 1024) * 144) + " Mb");</script>
+      </option>
+      <option value=5>11000 x 11000
+        <script
+          type="text/javascript">document.write((((((11000 * 11000) / (550 * 550)) * 500) / 1024) * 144) + " Mb");</script>
+      </option>
     </select>
     <br>
 
     <div class="progress">
-      <div id="dynamic" class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
-        <span id="current-progress"></span>
+      <div id="dynamic_progress_bar" class="progress-bar progress-bar-success progress-bar-striped active"
+        role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+        style="width: 0%; text-align: center;color: black; font-weight: bold;">
       </div>
     </div>
-    
+
     <br>
 
     <div class="well">First time downloading would take some time...</div>
 
-    <button class="btn btn-success" id="download_start_button" onclick="setWall();">Start Downloading</button>
+    <button class="btn btn-success" id="download_start_button" style="display:block;">Start Downloading</button>
+    <button class="btn btn-danger" id="download_stop_button" style="display:none;">Stop Downloading</button>
 
   </div>
 
