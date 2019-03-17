@@ -73,7 +73,7 @@ var himawari = function (userOptions) {
         3: "8d"
       },
       D531106: {
-        1: "1d",
+        1: "2d",
         2: "4d",
         3: "8d",
         4: "16d",
@@ -105,7 +105,6 @@ var himawari = function (userOptions) {
         });
       }
     }
-    console.log("HELLO");
     // Create a temp directory
     var tmp = mktemp.dirSync({ unsafeCleanup: true });
 
@@ -219,6 +218,10 @@ var himawari = function (userOptions) {
       var earth_data_files = [];
       width = 550;
       fs.readdirSync(earth_data_location).forEach(file => {
+        // file : earth_1_0_1.png
+        // 1 is index...
+        // 0 is x position of that image
+        // 1 is y position of that images
         var res = file.split("_");
         earth_data_files.push({
           "src": earth_data_location + file,
@@ -227,13 +230,37 @@ var himawari = function (userOptions) {
         });
       });
 
-      mergeImages(earth_data_files, {
-        width: width * (earth_data_files.length / 4),
-        height: width * (earth_data_files.length / 4)
-      })
-        .then(b64 => saveBase64Image(b64, outfile));
+      console.log(earth_data_files);
+      x = 0;
+      console.log(options.zoom);
+      switch (options.zoom) {
+        case "5":
+          x = 11000;
+          break;
+        case "4":
+          x = 8800;
+          break;
+        case "3":
+          x = 4400;
+          break;
+        case "2":
+          x = 2200;
+          break;
+        case "1":
+          x = 1100;
+          break;
+        default:
+          x = -1;
+      }
+      if (x != -1) {
+        mergeImages(earth_data_files, {
+          width: x,
+          height: x
+        })
+          .then(b64 => saveBase64Image(b64, outfile));
+      }
 
-      // MERGING TILES
+      // MERGING TILES.
 
       // Clean
       // try {
