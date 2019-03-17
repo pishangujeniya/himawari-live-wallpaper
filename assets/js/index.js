@@ -17,9 +17,8 @@ var walls_path = path.join(rootPath + "/earth_data/walls/");
 var dates_global = [];
 var stop_download = false;
 $(document).ready(function () {
-    $("#download_start_button").click(function () {
+    $("#download_start_button").unbind('click').bind('click', (function (e) {
         stop_download = false;
-        downloading = true;
         UI_UPDATE(ui_cases.start_download);
 
         level = sel1.options[sel1.selectedIndex].value;
@@ -52,15 +51,15 @@ $(document).ready(function () {
         fs.ensureDirSync(walls_path);
         fs.emptyDirSync(walls_path);
 
-        recursive_fetch_earth(0, dates_global.length);
+        recursive_fetch_earth(0, 1);
 
         (async () => {
             await wallpaper.set(out_file_path);
             // await wallpaper.get();
         })();
-    });
+    }));
 
-    $("#download_stop_button").click(function () {
+    $("#download_stop_button").unbind('click').bind('click', function () {
         UI_UPDATE(ui_cases.stop_download);
         stop_download = true;
         dates_global = [];
