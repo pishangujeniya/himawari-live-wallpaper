@@ -73,11 +73,12 @@ var himawari = function (userOptions) {
         3: "8d"
       },
       D531106: {
-        1: "2d",
-        2: "4d",
-        3: "8d",
-        4: "16d",
-        5: "20d"
+        1: "1d",
+        2: "2d",
+        3: "4d",
+        4: "8d",
+        5: "16d",
+        6: "20d"
       }
     }[image_type][options.zoom] || "1d";
 
@@ -229,25 +230,25 @@ var himawari = function (userOptions) {
           "y": width * parseInt(res[3].replace(".png", ""))
         });
       });
-
-      console.log(earth_data_files);
       x = 0;
-      console.log(options.zoom);
       switch (options.zoom) {
-        case "5":
+        case "6":
           x = 11000;
           break;
-        case "4":
+        case "5":
           x = 8800;
           break;
-        case "3":
+        case "4":
           x = 4400;
           break;
-        case "2":
+        case "3":
           x = 2200;
           break;
-        case "1":
+        case "2":
           x = 1100;
+          break;
+        case "1":
+          x = 550;
           break;
         default:
           x = -1;

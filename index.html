@@ -38,30 +38,32 @@
   <div class="form-group">
     <label for="sel1" id="resolution_select_label">Select minimum resolution:</label>
     <select class="form-control" id="sel1">
-      <option value=1>1100 x 1100
-        <script
-          type="text/javascript">
+      <option value=1>550 x 550
+        <script type="text/javascript">
+          document.write((0.5 * 144) + " Mb");
+              // document.write((((((1100 * 1100) / (550 * 550)) * 500) / 1024) * 144) + " Mb");</script>
+      </option>
+      <option value=2>1100 x 1100
+        <script type="text/javascript">
           document.write((2 * 144) + " Mb");
           // document.write((((((1100 * 1100) / (550 * 550)) * 500) / 1024) * 144) + " Mb");</script>
       </option>
-      <option value=2>2200 x 2200
+      <option value=3>2200 x 2200
         <script type="text/javascript">
           document.write((7 * 144) + " Mb");
           // document.write((((((2200 * 2200) / (550 * 550)) * 500) / 1024) * 144) + " Mb");</script>
       </option>
-      <option value=3>4400 x 4400
-        <script
-          type="text/javascript">
-           document.write((27 * 144) + " Mb");
+      <option value=4>4400 x 4400
+        <script type="text/javascript">
+          document.write((27 * 144) + " Mb");
           //  document.write((((((4400 * 4400) / (550 * 550)) * 500) / 1024) * 144) + " Mb");</script>
       </option>
-      <option value=4>8800 x 8800
-        <script
-          type="text/javascript">
+      <option value=5>8800 x 8800
+        <script type="text/javascript">
           document.write((105 * 144) + " Mb");
           // document.write((((((8800 * 8800) / (550 * 550)) * 500) / 1024) * 144) + " Mb");</script>
       </option>
-      <option value=5>11000 x 11000
+      <option value=6>11000 x 11000
         <script type="text/javascript">
           document.write((170 * 144) + " Mb");
           // document.write((((((11000 * 11000) / (550 * 550)) * 500) / 1024) * 144) + " Mb");
@@ -70,7 +72,7 @@
     </select>
     <br>
 
-    <div id ="download_info">First time downloading would take some time...</div>
+    <div id="download_info">First time downloading would take some time...</div>
 
     <br>
 
@@ -83,11 +85,16 @@
 
     <br>
 
-    <button class="btn btn-success" id="download_start_button" style="display:block;">Start Downloading</button>
-    <button class="btn btn-danger" id="download_stop_button" style="display:none;">Stop Downloading</button>
+    <button class="btn btn-success" id="download_start_button" style="display:block;" onclick="start_download_click();">Start Downloading</button>
+    <button class="btn btn-danger" id="download_stop_button" style="display:none;" onclick="stop_download_click();">Stop Downloading</button>
     <hr>
-    <button class="btn btn-primary" id="wallpaper_start_button" style="display:none;">Start wallpaper service</button>
-    <button class="btn btn-danger" id="wallpaper_stop_button" style="display:none;">Stop wallpaper service</button>
+    <button class="btn btn-primary" id="wallpaper_start_button" style="display:block;" onclick="wallpaper_start_click();">Start wallpaper service</button>
+    <button class="btn btn-danger" id="wallpaper_stop_button" style="display:block;"onclick="wallpaper_stop_click();">Stop wallpaper service</button>
+
+    <br>
+    <div id="current_time"></div>
+    <br>
+    <div id="next_wall_time"></div>
 
   </div>
 
