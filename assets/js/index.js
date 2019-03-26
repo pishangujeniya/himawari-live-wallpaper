@@ -1,10 +1,4 @@
-var wallpaper = require('wallpaper');
-var rootPath = require('electron-root-path').rootPath;
-const fs = require('fs-extra')
-var path = require('path');
-var himawari = require(path.join(rootPath, "/assets/js/himawari_scrapper.js"));
-var dateFormat = require('dateformat');
-var $ = require('jquery');
+
 
 const ui_cases = {
     start_download: 'start_download',
@@ -77,6 +71,32 @@ function wallpaper_stop_click() {
     level = sel1.options[sel1.selectedIndex].value;
     startWallpaperService(false, level);
 }
+function tempbuttonclick() {
+    // const { ipcRenderer } = require("electron");
+     //ipcRenderer.send("download", {
+     //    url: "http://localhost:8099/image-compress.php?want_binary=true&image_link=http%3A%2F%2Fvk.pishangujeniya.com%2Fearth_2200.png&secret_key=coffee",
+     //    properties: { directory: "./lol" }
+     //});
+     //ipcRenderer.on("download_progress", (event, status) => {
+     //    console.log(status); // Full file path
+     //});
+     //ipcRenderer.on("download_complete", (event, file) => {
+     //    console.log(file); // Full file path
+     //});
+
+    var now = new Date();
+    now.setDate(now.getDate() - 2);
+    day = now.getDate();
+    console.log(day);
+    month = now.getMonth();
+    year = now.getFullYear();
+    var hlg = new himawari_link_generator();
+    all_links = hlg.himawari_generate_day_links(day,month,year,2,false);
+    console.log(all_links);
+
+    var hd = new himawari_downloader(all_links, "./earth_data");
+    hd.initiate_download(false);
+}
 
 $(document).ready(function () {
     console.log("Document Ready..");
@@ -121,6 +141,9 @@ function recursive_fetch_earth(index, max_index) {
             skipEmpty: false,
             timeout: 30000,
             urls: false,
+            urls_output: function (uri) {
+                console.log(uri);
+            },
             success: function () {
                 // process.exit();
                 if (!stop_download) {
@@ -128,9 +151,9 @@ function recursive_fetch_earth(index, max_index) {
                     recursive_fetch_earth(index + 1, max_index);
                 }
             },
-            error: function (err) { if (DEBUG) console.log(err); },
+            error: function (err) { if (DEBUG) console.log("ERR : " + err); },
             chunk: function (info) {
-                if (DEBUG) console.log(info.outfile + ': ' + info.part + '/' + info.total);
+                if (DEBUG) console.log("Chunk Info : " + info.outfile + ': ' + info.part + '/' + info.total);
             }
         });
     }

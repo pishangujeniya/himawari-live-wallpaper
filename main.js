@@ -1,5 +1,6 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow,Tray,Menu } = require('electron')
+const { app, BrowserWindow, Tray, Menu, ipcMain } = require('electron');
+const {download} = require("electron-dl");
 var path = require('path')
 var url = require('url')
 var iconpath = path.join(__dirname, './assets/images/icons8-globe-100.png') // path of y
@@ -65,6 +66,15 @@ function createWindow() {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+
+
+  ipcMain.on("download", (event, info) => {
+    info.properties.onProgress = status => mainWindow.webContents.send("download_progress", status);
+    download(mainWindow, info.url, info.properties)
+      .then(dl => mainWindow.webContents.send("download_complete", dl.getSavePath()));
+  })
+
+
 }
 
 // This method will be called when Electron has finished

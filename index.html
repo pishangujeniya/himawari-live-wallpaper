@@ -1,23 +1,26 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
-  <meta charset="UTF-8">
-  <title>Himawari Live Wallpaper</title>
+    <meta charset="UTF-8">
+    <title>Himawari Live Wallpaper</title>
 
-  <script src="./node_modules/jquery/dist/jquery.js"></script>
-  <script src="./node_modules/popper.js/dist/umd/popper.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
-
-
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+    <script src="./node_modules/jquery/dist/jquery.js"></script>
+    <script src="./node_modules/popper.js/dist/umd/popper.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
 
 
-  <script type="text/javascript" src="./assets/js/index.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+
+    <script type="text/javascript" src="./assets/js/includer.js"></script>
+    <script type="text/javascript" src="./assets/js/himawari_link_generator.js"></script>
+    <script type="text/javascript" src="./assets/js/himawari_downloader.js"></script>
+    <script type="text/javascript" src="./assets/js/index.js"></script>
+
 </head>
 
 <body>
@@ -95,6 +98,8 @@
     <div id="current_time"></div>
     <br>
     <div id="next_wall_time"></div>
+
+    <button class="btn btn-danger" id="tempbutton" onclick="tempbuttonclick();">tempbutton</button>
 
   </div>
 

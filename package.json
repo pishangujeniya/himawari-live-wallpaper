@@ -16,6 +16,7 @@
     "crypto": "^1.0.1",
     "dateformat": "^3.0.3",
     "deep-extend": "^0.6.0",
+    "electron-dl": "^1.13.0",
     "electron-root-path": "^1.0.9",
     "eslint": "^5.15.2",
     "fs-extra": "^7.0.1",
