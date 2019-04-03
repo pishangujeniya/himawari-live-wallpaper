@@ -2,24 +2,24 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <title>Himawari Live Wallpaper</title>
+  <meta charset="UTF-8">
+  <title>Himawari Live Wallpaper</title>
 
-    <script src="./node_modules/jquery/dist/jquery.js"></script>
-    <script src="./node_modules/popper.js/dist/umd/popper.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"></script>
+  <script src="./node_modules/jquery/dist/jquery.js"></script>
+  <script src="./node_modules/popper.js/dist/umd/popper.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
 
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
 
-    <script type="text/javascript" src="./assets/js/includer.js"></script>
-    <script type="text/javascript" src="./assets/js/himawari_link_generator.js"></script>
-    <script type="text/javascript" src="./assets/js/himawari_downloader.js"></script>
-    <script type="text/javascript" src="./assets/js/index.js"></script>
+  <script type="text/javascript" src="./assets/js/includer.js"></script>
+  <script type="text/javascript" src="./assets/js/himawari_link_generator.js"></script>
+  <script type="text/javascript" src="./assets/js/himawari_downloader.js"></script>
+  <script type="text/javascript" src="./assets/js/index.js"></script>
 
 </head>
 
@@ -39,6 +39,7 @@
     <h3>Himawari Live Wallpaper</h3>
   </header>
   <div class="form-group">
+      <h6>Downloading process is for first time only.</h6>
     <label for="sel1" id="resolution_select_label">Select minimum resolution:</label>
     <select class="form-control" id="sel1">
       <option value=1>550 x 550
@@ -88,18 +89,30 @@
 
     <br>
 
-    <button class="btn btn-success" id="download_start_button" style="display:block;" onclick="start_download_click();">Start Downloading</button>
-    <button class="btn btn-danger" id="download_stop_button" style="display:none;" onclick="stop_download_click();">Stop Downloading</button>
+    Compress Images before downloading? (This might take longer downloading times...)
+    <div class="material-switch pull-right">
+      <input id="someSwitchOptionDanger" name="to_compress_switch" type="checkbox" onclick='to_compress_switch(this);'/>
+      <label for="someSwitchOptionDanger" class="label-danger"></label>
+    </div>
+
+    <br>
+
+    <button class="btn btn-success" id="download_start_button" style="display:block;"
+      onclick="start_download_click();">Start Downloading</button>
+    <button class="btn btn-danger" id="download_stop_button" style="display:none;" onclick="stop_download_click();">Stop
+      Downloading</button>
     <hr>
-    <button class="btn btn-primary" id="wallpaper_start_button" style="display:block;" onclick="wallpaper_start_click();">Start wallpaper service</button>
-    <button class="btn btn-danger" id="wallpaper_stop_button" style="display:block;"onclick="wallpaper_stop_click();">Stop wallpaper service</button>
+    <button class="btn btn-primary" id="wallpaper_start_button" style="display:block;"
+      onclick="wallpaper_start_click();">Start wallpaper service</button>
+    <button class="btn btn-danger" id="wallpaper_stop_button" style="display:block;"
+      onclick="wallpaper_stop_exit_click();">Stop  wallpaper service & Exit</button>
 
     <br>
     <div id="current_time"></div>
     <br>
-    <div id="next_wall_time"></div>
-
-    <button class="btn btn-danger" id="tempbutton" onclick="tempbuttonclick();">tempbutton</button>
+    <div id="next_wall_time">Wallpaper would be set every hour at interval of 10 minutes.<br>For example :  At every hour minutes of 0, 10, 20, 30, 40, 50 </div>
+    <hr>
+    <div id="next_wall_time">Please minimise this app after starting wallpaper service. </div>
 
   </div>
 

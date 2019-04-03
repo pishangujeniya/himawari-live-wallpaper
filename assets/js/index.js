@@ -1,18 +1,18 @@
-
-
 const ui_cases = {
     start_download: 'start_download',
     stop_download: 'stop_download',
     download_completed: 'download_completed',
-    start_wallpaper_service: 'start_wallpaper_service',
-    stop_wallpaper_service: 'stop_wallpaper_service'
+    start_wallpaper_service: 'start_wallpaper_service'
 }
 var DEBUG = true;
 var walls_path = path.join(rootPath + "/earth_data/walls/");
+var tiles_path = path.join(rootPath + "/earth_data/tiles/");
 
 var dates_global = [];
 var stop_download = false;
 var start_wallpaper_service = false;
+var to_compress = false;
+var last_wallpaper_set = undefined;
 
 
 function start_download_click() {
@@ -50,11 +50,6 @@ function start_download_click() {
     fs.emptyDirSync(walls_path);
 
     recursive_fetch_earth(0, dates_global.length);
-
-    (async () => {
-        await wallpaper.set(out_file_path);
-        // await wallpaper.get();
-    })();
 }
 function stop_download_click() {
     UI_UPDATE(ui_cases.stop_download);
@@ -66,24 +61,13 @@ function wallpaper_start_click() {
     level = sel1.options[sel1.selectedIndex].value;
     startWallpaperService(true, level);
 }
-function wallpaper_stop_click() {
-    UI_UPDATE(ui_cases.stop_wallpaper_service);
-    level = sel1.options[sel1.selectedIndex].value;
-    startWallpaperService(false, level);
+function wallpaper_stop_exit_click() {
+    const remote = require('electron').remote
+    let w = remote.getCurrentWindow()
+    w.close();
 }
-function tempbuttonclick() {
-    // const { ipcRenderer } = require("electron");
-     //ipcRenderer.send("download", {
-     //    url: "http://localhost:8099/image-compress.php?want_binary=true&image_link=http%3A%2F%2Fvk.pishangujeniya.com%2Fearth_2200.png&secret_key=coffee",
-     //    properties: { directory: "./lol" }
-     //});
-     //ipcRenderer.on("download_progress", (event, status) => {
-     //    console.log(status); // Full file path
-     //});
-     //ipcRenderer.on("download_complete", (event, file) => {
-     //    console.log(file); // Full file path
-     //});
-
+function custom_downloader() {
+    // This function is not in use
     var now = new Date();
     now.setDate(now.getDate() - 2);
     day = now.getDate();
@@ -91,7 +75,7 @@ function tempbuttonclick() {
     month = now.getMonth();
     year = now.getFullYear();
     var hlg = new himawari_link_generator();
-    all_links = hlg.himawari_generate_day_links(day,month,year,2,false);
+    all_links = hlg.himawari_generate_day_links(day, month, year, 2, false);
     console.log(all_links);
 
     var hd = new himawari_downloader(all_links, "./earth_data");
@@ -100,7 +84,17 @@ function tempbuttonclick() {
 
 $(document).ready(function () {
     console.log("Document Ready..");
+
 });
+
+function to_compress_switch(event) {
+    if ($(event).is(":checked")) {
+        // it is checked
+        to_compress = true;
+    } else {
+        to_compress = false;
+    }
+}
 
 function recursive_fetch_earth(index, max_index) {
 
@@ -111,6 +105,9 @@ function recursive_fetch_earth(index, max_index) {
                 .attr("aria-valuenow", 100)
                 .text("Download Complete");
         });
+        // Deleting the /earth_data/tiles/ directory
+        fs.ensureDirSync(tiles_path);
+        fs.emptyDirSync(tiles_path);
         UI_UPDATE(ui_cases.download_completed);
         return true;
     } else if (stop_download == true) {
@@ -122,7 +119,7 @@ function recursive_fetch_earth(index, max_index) {
             $("#dynamic_progress_bar")
                 .css("width", ((index / max_index) * 100) + "%")
                 .attr("aria-valuenow", index + 1)
-                .text(index + 1 + " / " + max_index + " Complete");
+                .text(index + 1 + " / " + max_index + " Downloading...");
         });
         date = dates_global[index];
         HH = date.split(" ")[1].split(":")[0];
@@ -130,9 +127,9 @@ function recursive_fetch_earth(index, max_index) {
         file_name = HH + "_" + MM;
 
         out_file_path = path.join(walls_path, "earth_" + file_name + ".png");
-        // if (DEBUG) console.log(out_file_path);
         himawari({
             zoom: level,
+            compress: to_compress,
             date: date, // Or new Date() or a date string //2019-03-16 22:00:00
             debug: false,
             infrared: false,
@@ -173,6 +170,8 @@ function startWallpaperService(to_start, zoom_level) {
         downloaded_walls_data.push(data);
     });
     console.log(downloaded_walls_data);
+
+    
     timer();
     /** Now Time */
     function timer() {
@@ -195,7 +194,15 @@ function startWallpaperService(to_start, zoom_level) {
 
             for (var i = 0; i < downloaded_walls_data.length; i++) {
                 if (downloaded_walls_data[i].MM == MM && downloaded_walls_data[i].HH == HH) {
-                    console.log(downloaded_walls_data[i]);
+                    if (last_wallpaper_set != downloaded_walls_data[i]) {
+                        console.log("Set Wallpaper : ");
+                        console.log(downloaded_walls_data[i]);
+                        last_wallpaper_set = downloaded_walls_data[i];
+                        (async () => {
+                            await wallpaper.set(downloaded_walls_data[i].src);
+                            // await wallpaper.get();
+                        })();
+                    }
                 }
             }
 
@@ -231,6 +238,9 @@ function UI_UPDATE(ui_case) {
             $('#download_start_button').css('display', 'block');
             $('#download_stop_button').css('display', 'none');
             break;
+        case ui_cases.start_wallpaper_service:
+            if (DEBUG) console.log(ui_case);
+            $('#wallpaper_start_button').prop('disabled', true);
         default:
             if (DEBUG) console.log("UI UPDATE : Invalid ui_case");
     }

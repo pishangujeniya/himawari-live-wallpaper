@@ -13,6 +13,9 @@ A Live Wallpaper app which sets earth's live photos as your desktop wallpaper de
 
 --> Type ```npm install &   start```
 
+--> Builder ```npm install electron-builder --save-dev```
+--> Build ```npm run dist```            
+
 
 ## Acknowledgments
 

@@ -14,3 +14,4 @@ var moment = require('moment');
 var request = require('request');
 var mktemp = require('tmp');
 var mergeImages = require('merge-images');
+var electron = require('electron');

@@ -4,12 +4,15 @@
   "description": "A Live Wallpaper app which sets earth's live photos as your desktop wallpaper depending upon time.",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "pack": "build --dir",
+    "dist": "build"
   },
   "author": "Pishang Ujeniya",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^4.1.0"
+    "electron": "^4.1.0",
+    "electron-builder": "^20.39.0"
   },
   "dependencies": {
     "async": "^2.6.2",
@@ -27,5 +30,32 @@
     "popper.js": "^1.14.7",
     "tmp": "0.0.33",
     "wallpaper": "^4.3.0"
+  },
+  "build": {
+    "appId": "himawari-live-wallpaper",
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    },
+    "win": {
+      "target": "NSIS",
+      "icon": "./assets/images/icons8-globe-100_256X256.png"
+    }
   }
 }

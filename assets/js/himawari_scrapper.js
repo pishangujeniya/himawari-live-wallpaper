@@ -1,15 +1,3 @@
-//var async = require('async');
-//var crypto = require('crypto');
-//var extend = require('deep-extend');
-//var fs = require('fs-extra')
-//var moment = require('moment');
-//var path = require('path');
-//var request = require('request');
-//var mktemp = require('tmp');
-//var rootPath = require('electron-root-path').rootPath;
-//var mergeImages = require('merge-images');
-
-
 // The number of times a tile will attempted to be downloaded if the download fails
 var retries = 5;
 
@@ -31,7 +19,7 @@ var himawari = function (userOptions) {
         timeout: 30000, // 30 seconds
         urls: false,
         zoom: 1,
-
+        compress: false,
         success: function () { },
         error: function () { },
         chunk: function () { },
@@ -165,6 +153,11 @@ var himawari = function (userOptions) {
                     // return options.urls_output(uri);
                 }
 
+                if (options.compress) {
+                    quality = 65;
+                    uri = "https://image-compress.herokuapp.com/image-compress.php?secret_key=coffee&image_link=" + encodeURIComponent(uri) + "&quality=" + quality + "&delete_dirs=false&debug_mode=false&want_binary=true";
+                }
+
                 request({
                     method: 'GET',
                     uri: uri,
@@ -267,19 +260,21 @@ var himawari = function (userOptions) {
                     width: x,
                     height: x
                 })
-                    .then(b64 => saveBase64Image(b64, outfile));
+                    .then(b64 => afterMerge(b64, outfile, x));
             }
 
             // MERGING TILES.
 
             // Clean
-            // try {
-            //   log('Cleaning temp files...');
-            //   tmp.removeCallback();
-            // }
-            // catch(err) {
-            //   log('Cleaning Failed...');
-            // }
+            try {
+                log('Cleaning temp files...');
+                tmp.removeCallback();
+            }
+            catch (err) {
+                log('Cleaning Failed...');
+                console.log("Cleaning Failed..");
+                console.log(err);
+            }
             return options.success('File saved to ' + outfile);
 
         });
@@ -325,11 +320,43 @@ function resolveDate(base_url, input, callback) {
 
 }
 
+function afterMerge(b64_data, out_file, width) {
+    saveBase64Image(b64_data, out_file);
+    makeScreenWallpaper(out_file, width, width, true);
+}
+
 function saveBase64Image(b64_data, out_file) {
     var base64Data = b64_data.replace(/^data:image\/png;base64,/, "");
-    require("fs").writeFile(out_file, base64Data, 'base64', function (err) {
+    fs.writeFileSync(out_file, base64Data, 'base64', function (err) {
         console.log(err);
     });
+}
+
+function makeScreenWallpaper(input_file, input_image_width, input_image_height, is_landscape_image_generate) {
+    var dimensions = electron.screen.getPrimaryDisplay().size;
+
+    var SCREEN_WIDTH = dimensions.width;
+    var SCREEN_HEIGHT = dimensions.height;
+    console.log(SCREEN_WIDTH + "x" + SCREEN_HEIGHT);
+
+    if (is_landscape_image_generate) {
+        var new_image_width = parseInt(input_image_width * (SCREEN_WIDTH / SCREEN_HEIGHT));
+        var new_image_height = input_image_height;
+        console.log("NEW IMAGE WALLPAPER : " + new_image_width + " x " + new_image_height);
+        var new_x_position = (new_image_width/2) - (input_image_width/2);
+        mergeImages([{
+            "src": input_file,
+            "x": new_x_position,
+            "y": 0
+        }], {
+                width: new_image_width,
+                height: new_image_height
+            })
+            .then(b64 => saveBase64Image(b64, input_file));
+    } else {
+        console.log("Will be in future updates, currently only landscape monitors are supported");
+    }
+
 }
 
 himawari.resolveDate = resolveDate;

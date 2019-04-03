@@ -1,6 +1,7 @@
 # earth Data ignores
 earth_data/
 .vs/
+dist/
 
 
 
