@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "async": "^2.6.2",
+    "bootstrap": "^4.3.1",
     "crypto": "^1.0.1",
     "dateformat": "^3.0.3",
     "deep-extend": "^0.6.0",
@@ -28,6 +29,7 @@
     "moment": "^2.24.0",
     "path": "^0.12.7",
     "popper.js": "^1.14.7",
+    "request": "^2.88.0",
     "tmp": "0.0.33",
     "wallpaper": "^4.3.0"
   },
