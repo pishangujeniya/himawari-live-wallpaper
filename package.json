@@ -1,5 +1,5 @@
 {
-  "name": "live-wallpaper",
+  "name": "himawari-live-wallpaper",
   "version": "1.0.0",
   "description": "A Live Wallpaper app which sets earth's live photos as your desktop wallpaper depending upon time.",
   "main": "main.js",
