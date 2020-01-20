@@ -15,7 +15,7 @@ A Live Wallpaper app which sets earth's live photos as your desktop wallpaper de
 
 --> Builder ```npm install electron-builder --save-dev```
 --> Build ```npm run dist```            
-
+> Data are downloaded at the path `C:\Users\<username>\AppData\Local\Programs\himawari-live-wallpaper\earth_data\walls`
 
 ## Acknowledgments
 
