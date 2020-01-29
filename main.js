@@ -20,7 +20,7 @@ function createWindow() {
         }
     })
 
-    // mainWindow.setMenu(null);
+    mainWindow.setMenu(null);
 
     // and load the index.html of the app.
     mainWindow.loadFile('index.html')
@@ -56,7 +56,7 @@ function createWindow() {
     })
 
     mainWindow.on('show', function () {
-        appIcon.setHighlightMode('always')
+        // appIcon.setHighlightMode('always')
     })
 
     // Open the DevTools.

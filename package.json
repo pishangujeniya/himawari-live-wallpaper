@@ -1,38 +1,45 @@
 {
   "name": "himawari-live-wallpaper",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A Live Wallpaper app which sets earth's live photos as your desktop wallpaper depending upon time.",
   "homepage": "https://github.com/pishangujeniya/himawari-live-wallpaper",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "pack": "build --dir",
-    "dist": "build"
+    "dist": "build",
+    "package": "electron-packager ./ himawari-live-wallpaper --all --out ./dist/himawari-live-wallpaper --overwrite --icon=./assets/images/icons8-globe-100.png"
   },
   "author": "Pishang Ujeniya",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pishangujeniya/himawari-live-wallpaper.git"
+  },
   "devDependencies": {
-    "electron": "^4.1.0",
-    "electron-builder": "^20.39.0"
+    "electron": "^7.1.10",
+    "electron-builder": "^22.3.2",
+    "electron-packager": "^14.2.0"
   },
   "dependencies": {
-    "async": "^2.6.2",
-    "bootstrap": "^4.3.1",
+    "@popperjs/core": "^2.0.3",
+    "async": "^3.1.1",
+    "bootstrap": "^4.4.1",
     "crypto": "^1.0.1",
     "dateformat": "^3.0.3",
     "deep-extend": "^0.6.0",
-    "electron-dl": "^1.13.0",
-    "electron-root-path": "^1.0.9",
-    "eslint": "^5.15.2",
-    "fs-extra": "^7.0.1",
-    "jquery": "^3.3.1",
+    "electron-dl": "^3.0.0",
+    "electron-root-path": "^1.0.16",
+    "eslint": "^5.0.0",
+    "fs-extra": "^8.1.0",
+    "jquery": "^3.4.1",
     "merge-images": "^1.1.0",
     "moment": "^2.24.0",
     "path": "^0.12.7",
-    "popper.js": "^1.14.7",
+    "popper.js": "^1.16.1",
     "request": "^2.88.0",
-    "tmp": "0.0.33",
-    "wallpaper": "^4.3.0"
+    "tmp": "0.1.0",
+    "wallpaper": "^4.4.1"
   },
   "build": {
     "appId": "himawari-live-wallpaper",
